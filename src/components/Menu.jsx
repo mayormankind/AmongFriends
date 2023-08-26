@@ -11,9 +11,9 @@ export default function Menu({menu,setMenu}){
     ];
     return(
         <Flex pos='absolute' top='0' right='0' bg='white' w='200px' zIndex='200' flexDir='column' borderRadius='10px' border='2px solid lightgray' boxShadow='xs'>
-            <IconButton icon={<RiMenu3Fill/>} pos='absolute' right='15px' top='10px' color={menu ? '#252588' : 'white'} zIndex='300' variant='ghost' fontSize='30px' onClick={()=>setMenu(!menu)}/>
+            <IconButton icon={<RiMenu3Fill/>} pos='absolute' right='15px' top='10px' color={menu ? 'mongbg.100' : 'white'} zIndex='300' variant='ghost' fontSize='30px' onClick={()=>setMenu(!menu)}/>
             <Box p='5px 10px' mt='40px'>
-                <Flex gap='10px' flexDir='column' w='100%' fontSize='25px' color='#252588' fontWeight='semibold'>
+                <Flex gap='10px' flexDir='column' w='100%' fontSize='25px' color='mongbg.100' fontWeight='semibold'>
                     {Menus.map(menu=>(
                         <Link to={menu.action} key={menu.id}>
                             <Flex align='center' _hover={{bg:'rgba(0,0,0,0.2)'}}>{menu.icon}<Text ml='10px' p='5px' fontSize='20px'>{menu.menuLabel}</Text></Flex>

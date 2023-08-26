@@ -1,9 +1,6 @@
 import React from 'react';
 import {
-  ChakraProvider,
-  Box,
-  Grid,
-  theme,
+  ChakraProvider, Grid
 } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
@@ -11,6 +8,7 @@ import Search from './components/Search';
 import Message from './components/Message';
 import Login from './components/Login';
 import Chats from './components/Chats';
+import theme from './chakra';
 
 function App() {
   return (
@@ -23,11 +21,7 @@ function App() {
           <Route path={'/message'} element={<Message/>}/>
         </Routes>
       </Router>
-      {/* <Box textAlign="center" fontSize="xl"> */}
-        {/* <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end"/>
-        </Grid>
-      </Box> */}
+          {/* <ColorModeSwitcher justifySelf="flex-end"/> */}
     </ChakraProvider>
   );
 }

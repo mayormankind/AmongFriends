@@ -19,26 +19,37 @@ export const LoginWithGoogle=()=>{
 }
 
 export const SaveUserData = (props) =>{
-    addDoc(userRef, props)
-    .then(()=>{})
-    .catch((err)=>{
-      console.log(err);
-    })
-  }
+  addDoc(userRef, props)
+  .then(()=>{})
+  .catch((err)=>{
+    console.log(err);
+  })
+}
 
-  export const postImageUpload = (file,setStatus,setProgress) =>{
-    const imagesRef = ref(store,`postImages/${file.name + v4()}`);
-    const uploadTask = uploadBytesResumable(imagesRef,file)
-    uploadTask.on("state_changed", (snapshot) =>{
-      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      setProgress(progress);
-    },
-    (err) => {
-      console.log(err);
-    },
-    ()=>{
-      getDownloadURL(uploadTask.snapshot.ref).then((res)=>{
-        setStatus(res);
-      });
-    })
-  }
+export const SignOut = () => {
+  signOut(auth)
+  .then(() => {
+    toast.success(`user is successfully logged out`);
+    navigate('/');
+   })
+  .catch((error) => {
+    alert(error);
+  });
+};
+
+export const postImageUpload = (file,setStatus,setProgress) =>{
+  const imagesRef = ref(store,`postImages/${file.name + v4()}`);
+  const uploadTask = uploadBytesResumable(imagesRef,file)
+  uploadTask.on("state_changed", (snapshot) =>{
+  const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    setProgress(progress);
+  },
+  (err) => {
+    console.log(err);
+  },
+  ()=>{
+    getDownloadURL(uploadTask.snapshot.ref).then((res)=>{
+      setStatus(res);
+    });
+  })
+}

@@ -13,7 +13,7 @@ export default function NavBar({click}){
             <Flex justify='space-around' align='center'>
                 {Navs.map(nav=>(
                     <Link to={nav.path} key={nav.id}> 
-                        <IconButton color='white' transform={nav.navLabel===click ? 'scale(2)' : 'none'} icon={nav.navLabel === click ? nav.iconFill : nav.iconLine} variant={'ghost'} fontSize={'30px'} />
+                        <IconButton color='white' transform={nav.navLabel===click ? 'scale(1.3)' : 'none'} icon={nav.navLabel === click ? nav.iconFill : nav.iconLine} variant={'ghost'} fontSize={'30px'} />
                     </Link>
                 ))}
             </Flex>

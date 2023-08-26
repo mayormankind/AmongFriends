@@ -10,7 +10,7 @@ export default function Login(){
             <Box>
                 <Text color='white' fontWeight={'semibold'} fontSize='40px'>Welcome Back!</Text>
                 <Link to='/chats'>
-                    <Button w='100%' h='60px'>
+                    <Button w='100%' h='60px' bg='white'>
                         <Flex align='center' gap='10px' color='#252588'>
                             <RiGoogleFill fontSize='30px'/>
                             Sign in with Google

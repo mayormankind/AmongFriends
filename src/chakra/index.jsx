@@ -1,6 +1,16 @@
 import { extendTheme } from '@chakra-ui/react';
 
-export const theme = extendTheme({
+const theme = extendTheme({
+    components: {
+        Button: {
+            // baseStyle: {
+            // },
+            defaultProps: {
+                _hover: {bg:'lightgray'},
+                // colorScheme: 'wh',
+            }
+        },
+    },
     breakpoints:{
         xs: "480px",
         sm: "600px",
@@ -9,7 +19,11 @@ export const theme = extendTheme({
         "2xl": "1536px"
     },
     colors:{
-        100: "#252588",
-        700: "#070722"
+        mongbg: {
+            100: "#252588",
+            700: "#070722"
+        }
     }
 })
+
+export default theme;

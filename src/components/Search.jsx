@@ -30,7 +30,7 @@ export default function Search() {
   return (
     <Navigation click={'Search'}>
       <Box pos='relative' p='60px 0' h='100%' w='100%' overflowY='scroll'>
-        <Flex p='10px' pos='sticky' top='0' justify='center' align='center' zIndex='100' bg='white'>
+        <Flex p='10px' pos='sticky' top='0' justify='center' align='center' zIndex='100'>
           <Flex as='form' w='100%' h='50px' justify='center' align='center' border='3px solid #252588' borderRadius='20px'>
               <input type='text' placeholder='Make your search here...' style={{width:'100%',height:'100%',outline:'none',paddingLeft:'10px',borderRadius:'20px'}} onChange={(e)=>setQuery(e.target.value)}/>
               <IconButton type='submit' icon={<RiSearchLine/>} fontSize='20px' variant={'ghost'}/>
