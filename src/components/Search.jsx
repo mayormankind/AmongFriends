@@ -2,11 +2,11 @@ import { Box, Flex, Text, Button, IconButton } from '@chakra-ui/react'
 import React, { useState} from 'react';
 import Navigation from './Navigation';
 import Userblock from './Userblock';
-import { RiSearchLine } from 'react-icons/ri';
+import { RiCloseFill, RiSearchLine } from 'react-icons/ri';
 import CreateGroup from './CreateGroup';
 import ImageViewer from './ImageViewer';
 
-export default function Search() {
+export default function Search({setSearch}) {
   const [ query, setQuery ] = useState('');
   const [ newGroup, setNewGroup ] = useState(false);
   const [ viewImage, setViewImage ] = useState(false);
@@ -28,8 +28,10 @@ export default function Search() {
       person.username.toLowerCase().includes(query) || person.email.toLowerCase().includes(query))
   }
   return (
-    <Navigation click={'Search'}>
-      <Box pos='relative' p='60px 0' h='100%' w='100%' overflowY='scroll'>
+    // <Navigation click={'Search'}>
+    <Box pos={'fixed'} h='100%' w='100%' top='0' left='0' bg={'rgba(0,0,0,0.9)'} zIndex='50'>
+      <RiCloseFill fontSize='30px' onClick={()=>setSearch(false)}/>
+      <Box h='100%' w='100%' maxW={{sm:'500px',base:'100%'}} overflowY='scroll' mx='auto'>
         <Flex p='10px' pos='sticky' top='0' justify='center' align='center' zIndex='100'>
           <Flex as='form' w='100%' h='50px' justify='center' align='center' border='3px solid #252588' borderRadius='20px'>
               <input type='text' placeholder='Make your search here...' style={{width:'100%',height:'100%',outline:'none',paddingLeft:'10px',borderRadius:'20px'}} onChange={(e)=>setQuery(e.target.value)}/>
@@ -50,9 +52,9 @@ export default function Search() {
             </Box>
           )))}
         </Flex>
+        {newGroup && <CreateGroup setNewGroup={setNewGroup} groupName={groupName} setGroupName={setGroupName}/>}
+        {viewImage && <ImageViewer pImage={image} setImage={setImage} setViewImage={setViewImage}/>}
       </Box>
-      {newGroup && <CreateGroup setNewGroup={setNewGroup} groupName={groupName} setGroupName={setGroupName}/>}
-      {viewImage && <ImageViewer pImage={image} setImage={setImage} setViewImage={setViewImage}/>}
-    </Navigation>
+    </Box>
   )
 }

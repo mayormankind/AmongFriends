@@ -1,27 +1,34 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import {
   ChakraProvider, Grid
 } from '@chakra-ui/react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import Search from './components/Search';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Message from './components/Message';
-import Login from './components/Login';
-import Chats from './components/Chats';
+import Login from './Pages/Login';
+import Chat from './Pages/Chat';
 import theme from './chakra';
+import { Context } from './api/Context';
 
 function App() {
+  const { user } = useContext(Context);
+
+  const Routing = ({children}) => {
+    if(user){
+      return children
+      console.log(user)
+    }
+    return <Navigate to={'/login'}/>
+  }
+  
   return (
     <ChakraProvider theme={theme}>
       <Router>
         <Routes>
-          <Route index element={<Login/>}/>
-          <Route path={'/search'} element={<Search/>}/>
-          <Route path={'/chats'} element={<Chats/>}/>
-          <Route path={'/message'} element={<Message/>}/>
+          <Route index element={<Routing><Chat/></Routing>}/>
+          <Route path={'/login'} element={<Login/>}/>
+          {/* <Route path={'/message'} element={<Message/>}/> */}
         </Routes>
       </Router>
-          {/* <ColorModeSwitcher justifySelf="flex-end"/> */}
     </ChakraProvider>
   );
 }

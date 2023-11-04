@@ -4,15 +4,18 @@ import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import ContextClass from './api/Context';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
-  <StrictMode>
-    <ColorModeScript />
-    <App />
-  </StrictMode>
+  <ContextClass>
+    <StrictMode>
+      <ColorModeScript />
+      <App />
+    </StrictMode>
+  </ContextClass>
 );
 
 // If you want your app to work offline and load faster, you can change
