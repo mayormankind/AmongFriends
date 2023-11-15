@@ -23,7 +23,7 @@ export default function Chatbox() {
           <Avatar src='images/2.jpg' boxSize='40px' mr='10px'/>
           <Box w='100%'>
             <Text color='white'>Statesman</Text>
-            <Text fontSize='small'>last seen at 3:00 ...</Text>
+            <Text fontSize='small' color='gray'>last seen at 3:00 ...</Text>
           </Box>
           <IconButton icon={<RiGridFill/>} variant={'ghost'} fontSize='24px'/>
         </Flex>

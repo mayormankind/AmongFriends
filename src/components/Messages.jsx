@@ -6,7 +6,7 @@ export default function Messages() {
   const { colorMode } = useColorMode();
   const isDark = colorMode == 'dark';
   return (
-    <Flex gap='10px' flexDir='column' p='10px' w='100%' h='80%' overflowY='scroll'>
+    <Flex gap='10px' flexDir='column' p='10px' w='100%' h='80%' overflowY='scroll' bg='#515185'>
         <Message message={'Hello Boss'} owner='receiver'/>
         <Message message={'Oga mi bawo ni?'} owner='sender'/>
         <Message message={'I dey ooo. Na your face we dey look like this'} owner='receiver'/>
