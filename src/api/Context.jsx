@@ -1,7 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React,{createContext,useState,useEffect} from "react";
 import { auth } from "./firebase";
-// import { getActiveUser } from ".";
 
 export const Context = createContext(null);
 
@@ -22,5 +21,5 @@ return (
   </Context.Provider>
   )
 }
-
+//1:37:07
 export default ContextClass ;

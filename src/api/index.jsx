@@ -1,8 +1,9 @@
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { collection, addDoc,  onSnapshot, query, where, doc, setDoc, deleteDoc, orderBy, updateDoc } from 'firebase/firestore';
 import {auth,provider,db, store} from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
+// import { v4 as uuid } from 'uuid';
 
 export const userRef = collection(db,'users');
 
@@ -15,7 +16,6 @@ export const LoginWithGoogle=async()=>{
         username:user.displayName,
         email:user.email,
         photoURL:user.photoURL});
-      localStorage.setItem('username',user.email);
       toast.success('Account created successfully')
     })
     .catch((err)=>{
@@ -50,3 +50,17 @@ export const SignOut = () => {
 //     });
 //   })
 // }
+
+export const profileImageUpload = (file,setStatus) =>{
+  const imagesRef = ref(store,`profileImages/${file}}`);
+  const uploadTask = uploadBytesResumable(imagesRef,file)
+  uploadTask.on("state_changed",
+  (err) => {
+    console.log(err);
+  },
+  ()=>{
+    getDownloadURL(uploadTask.snapshot.ref).then(async(res)=>{
+      setStatus(res);
+    });
+  })
+}

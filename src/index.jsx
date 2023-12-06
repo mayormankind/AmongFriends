@@ -5,16 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import ContextClass from './api/Context';
+import ChatContextClass from './api/ChatContext';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
   <ContextClass>
-    <StrictMode>
-      <ColorModeScript />
-      <App />
-    </StrictMode>
+    <ChatContextClass>
+      <StrictMode>
+        <ColorModeScript />
+        <App />
+      </StrictMode>
+    </ChatContextClass>
   </ContextClass>
 );
 

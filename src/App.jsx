@@ -5,6 +5,7 @@ import {
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Message from './components/Message';
 import Login from './Pages/Login';
+import Signup from './Pages/Signup';
 import Chat from './Pages/Chat';
 import theme from './chakra';
 import { Context } from './api/Context';
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route index element={<Routing><Chat/></Routing>}/>
           <Route path={'/login'} element={<Login/>}/>
+          <Route path={'/signup'} element={<Signup/>}/>
           {/* <Route path={'/message'} element={<Message/>}/> */}
         </Routes>
       </Router>
