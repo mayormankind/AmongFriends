@@ -1,7 +1,7 @@
 import react, { useState, useContext } from 'react';
 import { Box, Flex, Text, Button, IconButton, Avatar } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
-import { collection, doc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../api/firebase';
 import { Context } from '../api/Context';
 
@@ -10,22 +10,30 @@ export default function UserBlock(props){
     const [ userS, setUserS ] = useState(null);
     const { user } = useContext(Context);
     const findUser = async(per)=>{
-        const q = query(collection(db,'users'),where('displayName','===',per));
+        const q = query(collection(db,'users'),where('displayName','==',per));
         try{
             const queryData = await getDocs(q);
             queryData.forEach((doc)=>{
                 setUserS(doc.data())
             });
         }catch{}
-        setUserS(null)
     }
     const addUser = async () =>{
         const mateUid = user.uid > userS.uid ? user.uid + userS.uid : userS.uid + user.uid;
         try{
-            const res = await getDocs(db,'chats',mateUid);
+            const res = await getDoc(doc(db,'chats',mateUid));
             if(!res.exists()){
-                await setDoc(doc,(db,'chats',mateUid),{ messages:[]})
+                await setDoc(doc(db,'chats',mateUid),{ messages:[]});
+
                 await updateDoc(doc(db,'userChats',user.uid),{
+                    [mateUid+"Info"]:{
+                        uid:userS.uid,
+                        displayName: userS.displayName,
+                        photoURL: userS.photoURL
+                    },
+                    [mateUid+".date"]: serverTimestamp(),
+                })
+                await updateDoc(doc(db,'userChats',userS.uid),{
                     [mateUid+"Info"]:{
                         uid:user.uid,
                         displayName: user.displayName,
@@ -37,7 +45,7 @@ export default function UserBlock(props){
         }catch (err) {
             console.log(err)
         }
-
+        setUserS(null);
     }
     const chatUser = (per) =>{
         findUser(per);
