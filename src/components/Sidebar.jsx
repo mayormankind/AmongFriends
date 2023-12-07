@@ -1,6 +1,6 @@
 import React,{ useContext, useState } from 'react';
 import { Box, Flex, Text, IconButton, Avatar, Button } from '@chakra-ui/react';
-import Navigation from './Navigation';
+// import Navigation from './Navigation';
 import Chats from './Chats';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Link } from 'react-router-dom';

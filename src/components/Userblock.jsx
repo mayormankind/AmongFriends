@@ -9,15 +9,20 @@ import { Context } from '../api/Context';
 export default function UserBlock(props){
     const [ userS, setUserS ] = useState(null);
     const { user } = useContext(Context);
-    const ChatUser = async(per)=>{
-        const q = query(collection(db,'users'),where('displayName','===',per))
-        const queryData = await getDocs(q);
-        queryData.forEach(doc=>{
-            setUserS(doc.data())
-        })
-        const mateUid = user.uid > userS.uid ? user.uid + userS.uid : userS.uid + user.uid
+    const findUser = async(per)=>{
+        const q = query(collection(db,'users'),where('displayName','===',per));
         try{
-            const res = await getDocs(doc(db,'chats',mateUid))
+            const queryData = await getDocs(q);
+            queryData.forEach((doc)=>{
+                setUserS(doc.data())
+            });
+        }catch{}
+        setUserS(null)
+    }
+    const addUser = async () =>{
+        const mateUid = user.uid > userS.uid ? user.uid + userS.uid : userS.uid + user.uid;
+        try{
+            const res = await getDocs(db,'chats',mateUid);
             if(!res.exists()){
                 await setDoc(doc,(db,'chats',mateUid),{ messages:[]})
                 await updateDoc(doc(db,'userChats',user.uid),{
@@ -29,11 +34,14 @@ export default function UserBlock(props){
                     [mateUid+".date"]: serverTimestamp(),
                 })
             }
-        }catch{}
-        setUserS(null)
+        }catch (err) {
+            console.log(err)
+        }
+
     }
-    const addChat = (per) =>{
-        console.log(`${per} is added already`)
+    const chatUser = (per) =>{
+        findUser(per);
+        userS && addUser()
     }
     const view_Image = (image) =>{
         props.setViewImage(true);
@@ -46,8 +54,7 @@ export default function UserBlock(props){
                 <Text fontWeight='semibold'>{props.username}</Text>
                 <Text fontSize='small'>{props.email}</Text>
             </Box>
-            {/* <Button bg='#252588' color='white' onClick={()=>ChatUser(props.username)}>Message</Button> */}
-            <Button bg='#252588' color='white' onClick={()=>addChat(props.username)}>Message</Button>
+            <Button bg='#252588' color='white' onClick={()=>chatUser(props.username)}>Message</Button>
         </Flex>
     )
 }

@@ -3,19 +3,24 @@ import { collection, addDoc,  onSnapshot, query, where, doc, setDoc, deleteDoc, 
 import {auth,provider,db, store} from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 // import { v4 as uuid } from 'uuid';
 
 export const userRef = collection(db,'users');
 
 export const LoginWithGoogle=async()=>{
+  // const navigate = useNavigate();
+
     signInWithPopup(auth, provider)
     .then(async (res)=>{
       let user = res.user;
       await setDoc(doc(db, "users", user.uid), {
-        userID:user.uid,
-        username:user.displayName,
+        uid:user.uid,
+        displayName:user.displayName,
         email:user.email,
         photoURL:user.photoURL});
+        await setDoc(doc(db, "userChats", user.uid), {});
+        // navigate('/');
       toast.success('Account created successfully')
     })
     .catch((err)=>{

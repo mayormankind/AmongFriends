@@ -1,10 +1,11 @@
 import { Flex, Box,Text, IconButton, useColorMode, Input, Button } from '@chakra-ui/react';
 import { Timestamp, serverTimestamp, updateDoc } from 'firebase/firestore';
-import React from 'react';
+import React, { useContext } from 'react';
 import { RiAttachmentLine, RiSendPlaneFill, RiTimerLine } from 'react-icons/ri';
 import { db, store } from '../api/firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-// import {  } from 'react-icons/fa';
+import { ChatContext } from '../api/ChatContext';
+import { Context } from '../api/Context';
 
 export default function MessageBox({setTimer,setFile,setTime,timer,time,message,setMessage,file}) {
   const { data } = useContext(ChatContext);
@@ -22,7 +23,7 @@ export default function MessageBox({setTimer,setFile,setTime,timer,time,message,
       const uploadTask = uploadBytesResumable(fileRef,file);
       uploadTask.on(
         (err)=>{
-          console.log(error);
+          console.log(err);
         },
         ()=>{
           getDownloadURL(uploadTask.snapshot.ref).then(async(res)=>{
@@ -61,7 +62,7 @@ export default function MessageBox({setTimer,setFile,setTime,timer,time,message,
       [data.chatId + '.date']: serverTimestamp(),
     })
     setMessage('')
-    setFile(null)
+    setFile('')
   }
   return (
     <Flex p='10px' h='10%' w='100%' bg={isDark ? 'black' : 'white'} boxShadow={'lg'}>

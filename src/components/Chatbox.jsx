@@ -3,7 +3,6 @@ import React,{ useState, useContext } from 'react';
 import { RiGridFill } from 'react-icons/ri';
 import { FaArrowLeft, FaBackward } from 'react-icons/fa';
 import MessageBox from './MessageBox';
-import Navigation from './Navigation';
 import Messages from './Messages';
 import Timer from './Timer';
 import { Link } from 'react-router-dom';
@@ -19,18 +18,18 @@ export default function Chatbox() {
       <Box flex={{sm:'2',base:'1'}} h='100%' w='100%' display={{sm:'flex',base:'none'}} flexDir='column'>
         <Flex bg='#070722' align='center' justify='space-between' w='100%' p='10px' h='10%'>
           <Link to='/chats'>
-            <IconButton display={{sm:'none',base:'flex'}} variant='ghost' color='white' icon={<FaArrowLeft/>}/>
+            <IconButton display={{sm:'none',base:'flex'}}  variant='ghost' color='white' icon={<FaArrowLeft/>}/>
           </Link>
-          {/* <Avatar src={data.photoURL} boxSize='40px' mr='10px'/>
+          <Avatar src={data.photoURL} boxSize='40px' mr='10px'/>
           <Box w='100%'>
             <Text color='white'>{data.user?.displayName}</Text>
             <Text fontSize='small' color='gray'>last seen at 3:00 ...</Text>
-          </Box> */}
-          <Avatar src='images/2.jpg' boxSize='40px' mr='10px'/>
-          <Box w='100%'>
-            <Text color='white'>{data.Info.displayName}</Text>
-            <Text fontSize='small' color='gray'>last seen at 3:00 ...</Text>
           </Box>
+          {/* <Avatar src='images/2.jpg' boxSize='40px' mr='10px'/>
+          <Box w='100%'>
+            <Text color='white'>Maxima</Text>
+            <Text fontSize='small' color='gray'>last seen at 3:00 ...</Text>
+          </Box> */}
           <IconButton icon={<RiGridFill/>} variant={'ghost'} fontSize='24px'/>
         </Flex>
         <Messages/>

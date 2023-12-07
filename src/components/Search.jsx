@@ -1,36 +1,39 @@
 import { Box, Flex, Text, Button, IconButton } from '@chakra-ui/react'
-import React, { useState} from 'react';
-import Navigation from './Navigation';
+import React, { useState, useEffect } from 'react';
+// import Navigation from './Navigation';
 import Userblock from './Userblock';
 import { RiCloseFill, RiSearchLine } from 'react-icons/ri';
 import CreateGroup from './CreateGroup';
 import ImageViewer from './ImageViewer';
 import { FaArrowLeft } from 'react-icons/fa';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query, doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../api/firebase';
 
 export default function Search({setSearch}) {
   const [ queryS, setQuery ] = useState('');
+  const [ users, setUsers ] = useState([]);
   const [ newGroup, setNewGroup ] = useState(false);
   const [ viewImage, setViewImage ] = useState(false);
   const [ image, setImage ] = useState('');
   const [ groupName, setGroupName ] = useState('');
-  const users = query(collection(db,'users'))
-  const users1 = [
-    {id:0, src:'1.jpg', username:'Samuel222', email:'samuel@gmail.com'},
-    {id:1, src:'2.jpg', username:'Tayo182', email:'ty@gmail.com'},
-    {id:2, src:'3.jpg', username:'Json234', email:'jason@gmail.com'},
-    {id:3, src:'4.jpg', username:'Mankind29', email:'mayormankind1243@gmail.com'},
-    {id:4, src:'5.jpg', username:'Mayokunsaw', email:'maysaw@gmail.com'},
-    {id:5, src:'6.jpg', username:'Jenny92', email:'jen@gmail.com'},
-    {id:6, src:'7.jpg', username:'Statesman', email:'agentwhiskey@gmail.com'},
-    {id:7, src:'8.jpg', username:'Kingsman', email:'galahad@gmail.com'},
-    {id:8, src:'2.jpg', username:'Eggsy', email:'eggsy@gmail.com'},
-  ]
+  const userRef = collection(db,'users');
+
+  useEffect(()=>{
+    onSnapshot(userRef,(snapshot)=>{
+      setUsers(
+        snapshot.docs.map((docs) =>{
+          return { ...docs.data() };
+        })
+      );
+    })
+  },[])
+  console.log(users)
+
   const searchQuery = (data) =>{
     return data.filter(person=>
-      person.username.toLowerCase().includes(queryS) || person.email.toLowerCase().includes(queryS))
+      person.displayName.toLowerCase().includes(queryS) || person.email.toLowerCase().includes(queryS))
   }
+
   return (
     <Box h='100%' w='100%' bg={'rgba(0,0,0,0.6)'} pos='fixed' top='0' left='0' zIndex='200'>
       <Box w='100%' maxW={{sm:'500px',base:'100%'}} h={{sm:'600px',base:'100%'}} m='auto' bg='white'>
@@ -46,19 +49,13 @@ export default function Search({setSearch}) {
         </Flex>
         <Box h='80%' w='100%' overflowY={'scroll'}>
           <Flex flexDir='column' gap='5px' w='100%'>
-            {/* {searchQuery(users).length == 0 ? */}
-            {searchQuery(users1).length == 0 ?
+            {users && searchQuery(users).length == 0 ?
             (<Box w='100%' h='100%'>
               <Text fontWeight='semibold' textAlign='center'>No results available for your search!!</Text>
             </Box>) : 
-            // (searchQuery(users).map(user=>(
-              // <Box key={user.uid}>
-              //   <Userblock image={user.photoURL} username={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage}/>
-              // </Box>
-            // )))}
-            (searchQuery(users1).map(user=>(
-              <Box key={user.id}>
-                <Userblock image={`images/${user.src}`} username={user.username} email={user.email} id={user.id} setImage={setImage} setViewImage={setViewImage} ChatUser={ChatUser}/>
+            (users && searchQuery(users).map(user=>(
+              <Box key={user.uid}>
+                <Userblock image={user.photoURL} username={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage}/>
               </Box>
             )))}
           </Flex>
