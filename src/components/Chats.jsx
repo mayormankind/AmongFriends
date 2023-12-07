@@ -36,7 +36,7 @@ export default function Chats() {
 
   return (
     <Flex flexDir='column' h='80%' overflowY='scroll' w='100%'>
-        {Object.entries(chats)?.sort((a,b) =>b[1].date - a[1].date).map((chat)=>(
+        {chats && Object.entries(chats)?.sort((a,b) =>b[1].date - a[1].date).map((chat)=>(
             <Flex align='center' gap='10px' key={chat[0]}justify='space-between' p='10px'>
                 <Avatar src={chat[1].Info.photoURL} boxSize='50px' mr='15px' cursor='pointer' onClick={()=>view_Image(chat[1].Info.photoURL)}/>
                 <Box w='100%' onClick={()=>chatUser(chat[1].Info)}>

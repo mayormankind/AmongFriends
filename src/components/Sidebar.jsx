@@ -26,7 +26,7 @@ export default function Sidebar({menu,setMenu}){
             <Box w='100%' h='100%'>
                 <Flex align='center' justify='space-between' w='100%' p='10px' h='10%' bg='#070722'>
                     <Text fontWeight='bold' flex='0.65' fontSize='22px' color='white'>MongFrens</Text>
-                    <IconButton color='white' icon={<RiSearchLine/>} variant={'ghost'} zIndex='250' fontSize={'24px'} onClick={()=>setSearch(!search)}/>
+                    <IconButton color='white' icon={<RiSearchLine/>} variant={'ghost'} zIndex={{sm:'250',base:'0'}} fontSize={'24px'} onClick={()=>setSearch(!search)}/>
                     <Flex align='center' justify='space-between' flex='0.35'>
                         <ColorModeSwitcher/>
                         <IconButton icon={<RiMenu3Fill/>} color={menu ? '#252588' : 'white'} zIndex='10' variant='ghost' fontSize='24px' onClick={()=>setMenu(!menu)}/>
