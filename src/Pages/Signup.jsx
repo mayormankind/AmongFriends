@@ -1,8 +1,8 @@
 import react, { useState } from 'react';
 import { Box, Flex, Text, Button, IconButton, Input } from '@chakra-ui/react';
 import { RiGoogleFill } from 'react-icons/ri';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { LoginWithGoogle, profileImageUpload } from '../api';
+import { Link, useNavigate } from 'react-router-dom';
+import { LoginWithGoogle } from '../api';
 import { Context } from '../api/Context';
 import { FaPhotoVideo } from 'react-icons/fa';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';

@@ -15,7 +15,7 @@ export default function Login(){
         signInWithEmailAndPassword(auth, email, password)
         .then((res)=>{
             navigate('/')
-          toast.success('Account login successfully')
+            toast.success('Account login successfully')
         })
         .catch((err)=>{
           console.log(err)

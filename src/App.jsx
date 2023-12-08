@@ -16,7 +16,6 @@ function App() {
   const Routing = ({children}) => {
     if(user){
       return children
-      console.log(user)
     }
     return <Navigate to={'/login'}/>
   }
