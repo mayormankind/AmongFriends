@@ -55,7 +55,7 @@ export default function Search({setSearch}) {
             </Box>) : 
             (users && searchQuery(users).map(user=>(
               <Box key={user.uid}>
-                <Userblock image={user.photoURL} username={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage}/>
+                <Userblock image={user.photoURL} displayName={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage}/>
               </Box>
             )))}
           </Flex>

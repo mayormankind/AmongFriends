@@ -55,14 +55,15 @@ export default function UserBlock(props){
         props.setViewImage(true);
         props.setImage(image)
     }
+    console.log(userS)
     return(
         <Flex align='center' justify='space-between' p='5px 10px' boxShadow='-2px 0px 2px 2px rgba(0,0,0,0.3)'>
             <Avatar src={props.image} onClick={()=>view_Image(props.image)}/>
-            <Box w='100%' ml='20px'>
-                <Text fontWeight='semibold'>{props.username}</Text>
+            <Box w='100%' ml='20px' color='black'>
+                <Text fontWeight='semibold'>{props.displayName}</Text>
                 <Text fontSize='small'>{props.email}</Text>
             </Box>
-            <Button bg='#252588' color='white' onClick={()=>chatUser(props.username)}>Message</Button>
+            <Button bg='#252588' color='white' onClick={()=>chatUser(props.displayName)}>Message</Button>
         </Flex>
     )
 }

@@ -33,17 +33,18 @@ export default function Chats() {
     const chatUser = (theUser) =>{
         dispatch({type: 'SWITCH_USER', payload: theUser})
     }
+    console.log(chats)
 
   return (
     <Flex flexDir='column' h='80%' overflowY='scroll' w='100%'>
         {chats && Object.entries(chats)?.sort((a,b) =>b[1].date - a[1].date).map((chat)=>(
             <Flex align='center' gap='10px' key={chat[0]}justify='space-between' p='10px'>
-                <Avatar src={chat[1].Info.photoURL} boxSize='50px' mr='15px' cursor='pointer' onClick={()=>view_Image(chat[1].Info.photoURL)}/>
+                <Avatar src={chat[1].photoURL} boxSize='50px' mr='15px' cursor='pointer' onClick={()=>view_Image(chat[1].Info.photoURL)}/>
                 <Box w='100%' onClick={()=>chatUser(chat[1].Info)}>
-                    <Text fontWeight='semibold'>{chat[1].Info.displayName}</Text>
+                    <Text fontWeight='semibold'>{chat[1].displayName}</Text>
                     <Text fontSize='small' color='bg.100'>{chat[1].lastMessage?.message}</Text>
                 </Box>
-                <Text fontSize='small'>{chat[2]}</Text>
+                {/* <Text fontSize='small'>{chat[2]}</Text> */}
             </Flex>
         ))}
         {viewImage && <ImageViewer pImage={image} setImage={setImage} setViewImage={setViewImage}/>}
