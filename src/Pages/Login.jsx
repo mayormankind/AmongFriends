@@ -6,6 +6,7 @@ import { GoogleSignUp } from '../api';
 import { Context } from '../api/Context';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../api/firebase';
+import { toast } from 'react-toastify';
 
 export default function Login(){
     const [ email, setEmail ] = useState('');
