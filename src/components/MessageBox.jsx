@@ -15,24 +15,27 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
   const { user } = useContext(Context);
   const {colorMode, toggleColorMode} =useColorMode();
   const isDark = colorMode == 'dark';
-  const sendMessage = async(e) =>{
+  const sendMessage = async() =>{
     if(asset){
       const assetRef = ref(store,uuid());
       const uploadTask = uploadBytesResumable(assetRef,asset)
       uploadTask.on(
+        (err)=>{
+          console.log(err);
+        },
         ()=>{
-            getDownloadURL(uploadTask.snapshot.ref).then(async(assetURL)=>{
-              await updateDoc(doc(db,'chats',data.chatId),{
-                messages: arrayUnion({
-                  id: uuid(),
-                  message,
-                  senderId: user.uid,
-                  mfile: assetURL,
-                  deleteTime: timer,
-                  date: Timestamp.now()
-                })
+          getDownloadURL(uploadTask.snapshot.ref).then(async(assetURL)=>{
+            await updateDoc(doc(db,'chats',data.chatId),{
+              messages: arrayUnion({
+                id: uuid(),
+                message,
+                senderId: user.uid,
+                mfile: assetURL,
+                deleteTime: time,
+                date: Timestamp.now()
               })
-            });
+            })
+          })
         })
     }else{
       await updateDoc(doc(db,'chats',data.chatId),{
@@ -40,7 +43,7 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
           id: uuid(),
           message,
           senderId: user.uid,
-          deleteTime: timer,
+          deleteTime: time,
           date: Timestamp.now()
         })
       })
@@ -67,7 +70,7 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
         <Input type='text' placeholder='Message Here...' fontSize='18px' w='100%' border='none' outline='none' onChange={(e)=>setMessage(e.target.value)} value={message}/>
         {time ? (<Text zIndex='30' onClick={()=>setTimer(!timer)}>{time}</Text>) :
         (<IconButton zIndex='30' icon={<RiTimerLine/>} title='timer' onClick={()=>setTimer(!timer)} color='gray' cursor='pointer' variant='ghost' fontSize='24px'/>)}
-        <Button type='submit' disabled={!message ? true : false} alignItems={'center'} title='send message' cursor='pointer' color='white' bg='#252588' onClick={sendMessage}>
+        <Button type='submit' isDisabled={!message ? true : false} alignItems={'center'} title='send message' cursor='pointer' color='white' bg='#252588' onClick={sendMessage}>
           Send
           <RiSendPlaneFill ml='5px' fontSize={'24px'}/>
         </Button>

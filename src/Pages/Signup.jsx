@@ -2,7 +2,7 @@ import react, { useState } from 'react';
 import { Box, Flex, Text, Button, IconButton, Input } from '@chakra-ui/react';
 import { RiGoogleFill } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginWithGoogle } from '../api';
+import { GoogleSignUp } from '../api';
 import { Context } from '../api/Context';
 import { FaPhotoVideo } from 'react-icons/fa';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -54,14 +54,9 @@ export default function Signup(){
             <Text textAlign='center' fontWeight='bold' fontSize='25px' fontFamily={'cursive'} pos='absolute' left='20px' top='10px'>MF</Text>
             <Flex flexDir='column' gap='10px' w='100%' maxW={{sm:'450px',base:'100%'}}>
                 <Text fontWeight={'semibold'} fontSize='40px'>Hi there!</Text>
-                <Button w='100%' h='60px' bg='white' onClick={LoginWithGoogle}>
-                    <Flex align='center' gap='10px' color='#252588'>
-                        <RiGoogleFill fontSize='30px'/>
-                            Sign up with Google
-                    </Flex>
-                </Button>
+                <GoogleSignUp/>
                 <Text pos='relative' _before={{content:'""',pos:'absolute',w:'120px',h:'3px',bg:'white',top:'50%',left:'0'}} _after={{content: '""',pos:'absolute',w:'120px',h:'3px',bg:'white',top:'50%',right:'0'}}>Or</Text>
-                <Flex as='form' flexDir='column' gap='10px' w={'100%'} >
+                <Flex flexDir='column' gap='10px' w={'100%'} >
                     <Input w='100%' h='50px' as='input' type='text' placeholder='Username' onChange={(e)=>setDisplayName(e.target.value)}/>
                     <Input w='100%' h='50px' as='input' type='email' placeholder='email' onChange={(e)=>setEmail(e.target.value)}/>
                     <Input w='100%' h='50px' as='input' type='password' placeholder='password' onChange={(e)=>setPassword(e.target.value)}/>

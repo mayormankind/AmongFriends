@@ -9,7 +9,7 @@ import { ChatContext } from '../api/ChatContext';
 
 export default function Chatbox({setBack}) {
   const [ timer, setTimer ] = useState(false);
-  const [ time, setTime ] = useState();
+  const [ time, setTime ] = useState(0);
   const { data } = useContext(ChatContext);
   return (
       <Box h='100%' w='100%' flexDir='column'>

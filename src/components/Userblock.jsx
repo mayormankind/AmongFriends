@@ -15,32 +15,29 @@ export default function UserBlock(props){
             queryData.forEach((doc)=>{
                 props.setUserS(doc.data())
             });
-            addUser();
-        }catch{}
+        }catch(err){
+            console.log(err)
+        }
     }
 
-
-    const chatUser = (per) =>{
-        findUser(per);
-        // props.setSearch(false);
-    }
+    console.log(props.userS?.uid)
+    console.log(props.userS?.photoURL)
 
     const addUser = async () =>{
-        const mateUid = user.uid > props.userS.uid ? user.uid + props.userS.uid : props.userS.uid + user.uid;
+        const mateUid = user.uid > props.userS?.uid ? user.uid + props.userS?.uid : props.userS?.uid + user.uid;
         try{
             const res = await getDoc(doc(db,'chats',mateUid));
             if(!res.exists()){
                 await setDoc(doc(db,'chats',mateUid),{ messages:[]});
-
                 await updateDoc(doc(db,'userChats',user.uid),{
                     [mateUid+".Info"]:{
-                        uid:props.userS.uid,
+                        uid:props.userS?.uid,
                         displayName: props.userS.displayName,
                         photoURL: props.userS.photoURL
                     },
                     [mateUid+".date"]: serverTimestamp(),
                 })
-                await updateDoc(doc(db,'userChats',props.userS.uid),{
+                await updateDoc(doc(db,'userChats',props.userS?.uid),{
                     [mateUid+".Info"]:{
                         uid:user.uid,
                         displayName: user.displayName,
@@ -52,8 +49,10 @@ export default function UserBlock(props){
         }catch (err) {
             console.log(err)
         }
-        props.setUserS(null);
+        props.setUserS(null);    
     }
+    {props.userS && addUser()}
+
    
     const view_Image = (image) =>{
         props.setViewImage(true);
@@ -67,7 +66,7 @@ export default function UserBlock(props){
                 <Text fontWeight='semibold'>{props.displayName}</Text>
                 <Text fontSize='small'>{props.email}</Text>
             </Box>
-            <Button bg='#252588' color='white' onClick={()=>chatUser(props.displayName)}>Message</Button>
+            <Button bg='#252588' color='white' onClick={()=>findUser(props.displayName)}>Message</Button>
         </Flex>
     )
 }

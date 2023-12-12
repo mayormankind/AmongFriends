@@ -30,6 +30,7 @@ export default function Chats({setBack}) {
         {user.uid && FetchChats()}
     },[user.uid])
 
+    console.log(chats)
     const chatUser = (theUser) =>{
         dispatch({type: 'SWITCH_USER', payload: theUser})
         setBack(true)
