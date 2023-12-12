@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import ContextClass from './api/Context';
 import ChatContextClass from './api/ChatContext';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -15,6 +17,7 @@ root.render(
     <ChatContextClass>
       <StrictMode>
         <ColorModeScript />
+        <ToastContainer/>
         <App />
       </StrictMode>
     </ChatContextClass>

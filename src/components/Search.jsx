@@ -1,8 +1,7 @@
 import { Box, Flex, Text, Button, IconButton } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react';
-// import Navigation from './Navigation';
 import Userblock from './Userblock';
-import { RiCloseFill, RiSearchLine } from 'react-icons/ri';
+import { RiSearchLine } from 'react-icons/ri';
 import CreateGroup from './CreateGroup';
 import ImageViewer from './ImageViewer';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -11,6 +10,7 @@ import { db } from '../api/firebase';
 
 export default function Search({setSearch}) {
   const [ queryS, setQuery ] = useState('');
+  const [ userS, setUserS ] = useState(null);
   const [ users, setUsers ] = useState([]);
   const [ newGroup, setNewGroup ] = useState(false);
   const [ viewImage, setViewImage ] = useState(false);
@@ -55,7 +55,7 @@ export default function Search({setSearch}) {
             </Box>) : 
             (users && searchQuery(users).map(user=>(
               <Box key={user.uid}>
-                <Userblock image={user.photoURL} displayName={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage}/>
+                <Userblock image={user.photoURL} displayName={user.displayName} email={user.email} id={user.uid} setImage={setImage} setViewImage={setViewImage} setSearch={setSearch} userS={userS} setUserS={setUserS}/>
               </Box>
             )))}
           </Flex>
