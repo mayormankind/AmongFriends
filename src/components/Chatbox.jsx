@@ -8,8 +8,6 @@ import Timer from './Timer';
 import { ChatContext } from '../api/ChatContext';
 
 export default function Chatbox({setBack}) {
-  const [ timer, setTimer ] = useState(false);
-  const [ time, setTime ] = useState(0);
   const { data } = useContext(ChatContext);
   return (
       <Box h='100%' w='100%' flexDir='column'>
@@ -23,8 +21,7 @@ export default function Chatbox({setBack}) {
           <IconButton icon={<RiGridFill/>} variant={'ghost'} fontSize='24px'/>
         </Flex>
         <Messages/>
-        <MessageBox setTimer={setTimer} setTime={setTime} timer={timer} time={time}/>
-        {timer && <Timer setTime={setTime} time={time} setTimer={setTimer}/>}
+        <MessageBox/>
       </Box>
   )
 }

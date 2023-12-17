@@ -7,10 +7,13 @@ import { v4 as uuid } from 'uuid';
 import { db, store } from '../api/firebase';
 import { ChatContext } from '../api/ChatContext';
 import { Context } from '../api/Context';
+import Timer from './Timer';
 
-export default function MessageBox({setTimer,setTime,timer,time}) {
+export default function MessageBox() {
   const [ message, setMessage ] = useState('');
   const [ asset, setAsset ] = useState('');
+  const [ timer, setTimer ] = useState(false);
+  const [ time, setTime ] = useState(0);
   const { data } = useContext(ChatContext);
   const { user } = useContext(Context);
   const {colorMode, toggleColorMode} =useColorMode();
@@ -31,7 +34,6 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
                 message,
                 senderId: user.uid,
                 mfile: assetURL,
-                deleteTime: time,
                 date: Timestamp.now()
               })
             })
@@ -43,7 +45,6 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
           id: uuid(),
           message,
           senderId: user.uid,
-          deleteTime: time,
           date: Timestamp.now()
         })
       })
@@ -67,14 +68,15 @@ export default function MessageBox({setTimer,setTime,timer,time}) {
       <Flex align='center' w='100%' h='100%'>
         <IconButton as='label' htmlFor='file' icon={<RiAttachmentLine/>} title='attachments' variant='ghost' color='gray' cursor='pointer' fontSize='24px'/>
         <input type='file' id='file' style={{display:'none'}} onChange={(e)=>setAsset(e.target.files[0])}/>
-        <Input type='text' placeholder='Message Here...' fontSize='18px' w='100%' border='none' outline='none' onChange={(e)=>setMessage(e.target.value)} value={message}/>
+        <Input type='text' placeholder='Message Here...' fontSize='15px' w='100%' border='none' outline='none' onChange={(e)=>setMessage(e.target.value)} value={message}/>
         {time ? (<Text zIndex='30' onClick={()=>setTimer(!timer)}>{time}</Text>) :
         (<IconButton zIndex='30' icon={<RiTimerLine/>} title='timer' onClick={()=>setTimer(!timer)} color='gray' cursor='pointer' variant='ghost' fontSize='24px'/>)}
         <Button type='submit' isDisabled={!message ? true : false} alignItems={'center'} title='send message' cursor='pointer' color='white' bg='#252588' onClick={sendMessage}>
           Send
-          <RiSendPlaneFill ml='5px' fontSize={'24px'}/>
+          <RiSendPlaneFill style={{ml:'5px',fontSize:'20px'}}/>
         </Button>
       </Flex>
+      {timer && <Timer setTime={setTime} time={time} setTimer={setTimer}/>}
     </Flex>
   )
 }

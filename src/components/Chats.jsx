@@ -38,7 +38,7 @@ export default function Chats({setBack}) {
 
   return (
     <Flex flexDir='column' h='80%' w='100%'>
-        {chats && Object.entries(chats)?.sort((a,b) =>b[1].date - a[1].date).map((chat)=>(
+        {chats && Object.entries(chats).length == 0 ? <Text>No chats here yet</Text> : Object.entries(chats)?.sort((a,b) =>b[1].date - a[1].date).map((chat)=>(
             <Flex align='center' gap='10px' key={chat[0]}justify='space-between' p='10px' bg={'blackAlpha.200'} _hover={{bg:'blackAlpha.300'}} cursor='pointer'>
                 <Avatar src={chat[1].Info.photoURL} boxSize='50px' cursor='pointer' onClick={()=>view_Image(chat[1].Info.photoURL)}/>
                 <Box w='100%' onClick={()=>chatUser(chat[1].Info)}>

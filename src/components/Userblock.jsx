@@ -20,8 +20,6 @@ export default function UserBlock(props){
         }
     }
 
-    console.log(props.userS?.uid)
-    console.log(props.userS?.photoURL)
 
     const addUser = async () =>{
         const mateUid = user.uid > props.userS?.uid ? user.uid + props.userS?.uid : props.userS?.uid + user.uid;
